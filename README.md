@@ -50,7 +50,8 @@ This resource benefits junior computer science students seeking to practice blue
 
 ---
 
-![image](https://github.com/user-attachments/assets/bcd40c86-4411-450c-a6ee-dc96a346a619)
+![Animated_example_demonstrating_use_of_snippet_in_PowerShell_ISE](https://github.com/user-attachments/assets/e554b1ee-1255-4947-8e5f-78bd072df777)
+
 
 ## 📜 Script Catalogue
 
