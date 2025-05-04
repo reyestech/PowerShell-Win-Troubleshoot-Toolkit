@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/d3ddf94c-e630-4c1c-bab6-4cdf16f72470)
+
 # PowerShell-Win-Troubleshoot-Toolkit
 
 Modern cybersecurity relies on three essential components: speed, visibility, and automation. This repository provides ready-to-execute PowerShell utilities that equip Security Operations Centers (SOCs) and Windows administrators with immediate capabilities: rapidly collecting evidence, promptly identifying anomalies, and initiating trusted remediation workflows without installing third-party dependencies.
@@ -47,6 +49,8 @@ This resource benefits junior computer science students seeking to practice blue
 > *Tip:* All parameters have sensible defaults; launch a script with `-Help` to see them.
 
 ---
+
+![image](https://github.com/user-attachments/assets/bcd40c86-4411-450c-a6ee-dc96a346a619)
 
 ## 📜 Script Catalogue
 
