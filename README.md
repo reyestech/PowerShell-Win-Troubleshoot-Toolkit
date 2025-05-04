@@ -7,8 +7,8 @@ Modern cybersecurity relies on three essential components: speed, visibility, an
 This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, enabling users to implement them confidently.
 
 ---
-
-## 🗂️ Table of Contents
+<details>
+  <summary> 🗂️ Table of Contents </summary>
 
 1. [Quick Start Guide](#-quick-start-guide)
 2. [Script Catalogue](#-script-catalogue)
@@ -24,6 +24,10 @@ This resource benefits junior computer science students seeking to practice blue
    * [Test‑NetworkConnectivity.ps1](#9️⃣-test-networkconnectivityps1)
    * [Export‑WindowsFirewallRules.ps1](#🔟-export-windowsfirewallrulesps1)
 3. [Conclusion](#-conclusion)
+
+</details>
+
+
 
 ---
 ## 🚀 Quick‑Start Guide
