@@ -1,66 +1,71 @@
 # PowerShell-Win-Troubleshoot-Toolkit
 
-# 🛠️ Win‑Troubleshoot PowerShell Toolkit
+Modern cybersecurity relies on three essential components: speed, visibility, and automation. This repository provides ready-to-execute PowerShell utilities that equip Security Operations Centers (SOCs) and Windows administrators with immediate capabilities: rapidly collecting evidence, promptly identifying anomalies, and initiating trusted remediation workflows without installing third-party dependencies.
 
-Practical, **zero‑dependency** PowerShell scripts for Security Operations Center (SOC) analysts and Windows administrators.
-Use them to **collect evidence**, **detect anomalies**, and **automate first‑response fixes**.
-
----
-
-## 📁 Repository Layout
-
-```text
-win‑troubleshoot‑powershell/
-├── README.md
-└── Scripts/
-    ├── Collect-EventLogs.ps1
-    ├── Run-SFCandDISM.ps1
-    ├── Get-ActiveConnections.ps1
-    ├── Get-SystemHealthSnapshot.ps1
-    ├── Detect-BruteForceLogons.ps1
-    ├── Get-ListeningPorts.ps1
-    ├── Audit-LocalAdminMembers.ps1
-    ├── Invoke-WindowsDefenderScan.ps1
-    ├── Test-NetworkConnectivity.ps1
-    └── Export-WindowsFirewallRules.ps1
-```
+This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, enabling users to implement them confidently.
 
 ---
 
-## 🚀 Quick Start
+## 🗂️ Table of Contents
+
+1. [Quick Start Guide](#-quick-start-guide)
+2. [Script Catalogue](#-script-catalogue)
+
+   * [Collect‑EventLogs.ps1](#1️⃣-collect-eventlogsps1)
+   * [Run‑SFCandDISM.ps1](#2️⃣-run-sfcanddismps1)
+   * [Get‑ActiveConnections.ps1](#3️⃣-get-activeconnectionsps1)
+   * [Get‑SystemHealthSnapshot.ps1](#4️⃣-get-systemhealthsnapshotps1)
+   * [Detect‑BruteForceLogons.ps1](#5️⃣-detect-bruteforcelogonsps1)
+   * [Get‑ListeningPorts.ps1](#6️⃣-get-listeningportsps1)
+   * [Audit‑LocalAdminMembers.ps1](#7️⃣-audit-localadminmembersps1)
+   * [Invoke‑WindowsDefenderScan.ps1](#8️⃣-invoke-windowsdefenderscanps1)
+   * [Test‑NetworkConnectivity.ps1](#9️⃣-test-networkconnectivityps1)
+   * [Export‑WindowsFirewallRules.ps1](#🔟-export-windowsfirewallrulesps1)
+3. [Conclusion](#-conclusion)
+
+---
+## 🚀 Quick‑Start Guide
+
+1. **Clone the repository** – Fetches the toolkit to your workstation so you can inspect or modify the scripts locally.
+
+   ```powershell
+   git clone https://github.com/<you>/win‑troubleshoot‑powershell.git
+   cd win‑troubleshoot‑powershell\Scripts
+   ```
+2. **Unblock local execution** – Windows protects you from running unsigned code. Setting the policy **only for your user** keeps the OS secure while allowing these scripts to run:
+
+   ```powershell
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+   ```
+3. **Run any helper** – Each script is self‑contained. For example, export the last 12 hours of System & Security logs to `D:\Logs`:
+
+   ```powershell
+   ./Collect-EventLogs.ps1 -HoursBack 12 -Logs 'System','Security' -OutputDir 'D:\Logs'
+   ```
+4. **Review the output** – Most scripts write either a table to screen or an artefact (CSV / JSON / TXT) you can attach to a ticket or drop into a SIEM pipeline.
+
+> *Tip:* All parameters have sensible defaults; launch a script with `-Help` to see them.
+
+---
+
+## 📜 Script Catalogue
+
+### 1️⃣ Collect‑EventLogs
+
+When incidents occur, the first question is, *“What happened, and when?”* This script automates forensic evidence collection by exporting Windows Event Logs for any specified time window. Instead of manually navigating through Event Viewer and saving EVTX files, you will receive organized CSV files that can be easily imported into Excel, Log Parser, or your SIEM for timeline analysis.
+ 
+**How it works**
+
+> * Accepts **`HoursBack`**, **`Logs`** (array of log names), and **`OutputDir`**.
+> * Creates the destination folder if it doesn’t exist.
+> * Uses **`Get‑WinEvent`** with a hashtable filter for efficiency (no slow `Where‑Object`).
+> * Selects the most actionable fields (timestamp, event ID, severity, message).
+> * Exports each log type to its own CSV for clean segregation.
+
+**Usage Example**
 
 ```powershell
-# 1 – Clone the repo
-git clone https://github.com/<you>/win‑troubleshoot‑powershell.git
-cd win‑troubleshoot‑powershell\Scripts
-
-# 2 – (Optional) allow local scripts to run for your user only
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-
-# 3 – Run any helper, e.g.:
-./Collect-EventLogs.ps1 -HoursBack 12 -OutputDir 'D:\Logs'
-```
-
----
-
-## 1️⃣ Collect‑EventLogs.ps1
-
-### Purpose
-
-Gather Windows logs (System, Application, Security, etc.) from the last ***N* hours** and save them as CSV files—ideal for attaching to a help‑desk or DFIR ticket.
-
-### How it works
-
-* **`param(...)`** — supplies `HoursBack`, `Logs`, `OutputDir` at runtime.
-* **`New‑Item -ItemType Directory`** — creates the output folder if missing.
-* **`Get‑WinEvent -FilterHashtable`** — pulls logs by name and start time.
-* **`Select TimeCreated, Id, LevelDisplayName, Message`** — keeps useful columns.
-* **`Export‑Csv`** — writes `System.csv`, `Application.csv`, …
-
-### Usage
-
-```powershell
-./Collect-EventLogs.ps1 -HoursBack 6 -Logs 'System','Security' -OutputDir 'C:\Temp\EventLogs'
+./Collect-EventLogs.ps1 -HoursBack 24 -Logs 'System','Application' -OutputDir 'C:\IR\Logs'
 ```
 
 ### Code
@@ -86,23 +91,23 @@ Write-Host "✔ Logs exported to $OutputDir"
 
 ---
 
-## 2️⃣ Run‑SFCandDISM.ps1
+### 2️⃣ Run‑SFCandDISM
 
-### Purpose
+System file corruption poses a significant risk to system reliability. This script effectively integrates two native Microsoft repair tools: System File Checker (SFC) and Deployment Image Servicing and Management (DISM). It captures their combined output in a timestamped log, which enhances the ability to conduct post-compromise integrity checks and assist in troubleshooting unexplained operating system errors. This approach ensures a thorough and systematic evaluation of the system's integrity.
 
-One‑click **Windows file‑integrity repair**: runs `sfc /scannow` *and* `DISM /RestoreHealth`, logging the results.
+**How it works**
 
-### How it works
+> * Builds a log directory on‑the‑fly to preserve historical runs.
+> * Executes `sfc /scannow` to repair active system files.
+> * Follows up with `DISM /RestoreHealth` to patch the underlying Windows image.
+> * Pipes all console output through **`Tee‑Object`** so you see progress live *and* keep a text record.
 
-* **`sfc /scannow`** — scans & auto‑repairs system files.
-* **`DISM /Online /Cleanup-Image /RestoreHealth`** — repairs the system image.
-* **`Tee‑Object`** — captures console output to a log file.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Run-SFCandDISM.ps1 -LogDir 'D:\HealthLogs'
+./Run-SFCandDISM.ps1 -LogDir 'D:\HealthChecks'
 ```
+
 
 ### Code
 
@@ -123,23 +128,23 @@ Write-Host "✔ Repair complete – see $log"
 
 ---
 
-## 3️⃣ Get‑ActiveConnections.ps1
+### 3️⃣ Get‑ActiveConnections
 
-### Purpose
+Malware often hides by attaching itself in plain sight and piggybacking on legitimate processes. This script displays all established outbound TCP connections, identifying each with the corresponding process name and the user who initiated it. This allows analysts to quickly identify unauthorized beacons or channels used for data exfiltration.
 
-Display every **established TCP session** with local/remote IP‑port, owning process, and user—great for spotting suspicious traffic.
+**How it works**
 
-### How it works
+> * Queries `Get‑NetTCPConnection` for **`State = Established`**.
+> * Resolves Process ID to friendly names using `Get‑Process`.
+> * Retrieves the owning username via CIM’s `Win32_Process.GetOwner()`.
+> * Outputs an alphabetised table ready for copy‑paste into a report or pasted into Grid View.
 
-* **`Get‑NetTCPConnection -State Established`** — fetches live sessions.
-* **`Get‑Process`** — resolves PID → process name.
-* **`Win32_Process.GetOwner()`** — maps process to username.
-
-### Usage
+**Usage Example**
 
 ```powershell
 ./Get-ActiveConnections.ps1 | Out-GridView
 ```
+
 
 ### Code
 
@@ -159,24 +164,27 @@ Get-NetTCPConnection -State Established | ForEach-Object {
 
 ---
 
-## 4️⃣ Get‑SystemHealthSnapshot.ps1
+### 4️⃣ Get‑SystemHealthSnapshot
 
-### Purpose
+Prior to initiating troubleshooting efforts, it is essential to establish a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
 
-Capture a **single‑screen health summary**—CPU load, RAM use, free disk, pending updates.
+**How it works**
 
-### How it works
+> * Samples CPU with `Get‑Counter '\Processor(_Total)\% Processor Time'` (three 1‑second polls averaged).
+> * Pulls memory stats from `Win32_OperatingSystem`, converting KB to GB for human readability.
+> * Enumerates drives via `Get‑PSDrive -PSProvider FileSystem`, rounding free space.
+> * If the **PSWindowsUpdate** module exists, `Get‑WindowsUpdate` counts pending patches; otherwise, it skips silently.
+> * Outputs everything as a tidy formatted list — perfect for screenshots or copy‑paste into an incident timeline.
 
-* **`Get‑Counter`** — samples CPU utilisation.
-* **`Win32_OperatingSystem`** — returns memory stats.
-* **`Get‑PSDrive`** — lists disks.
-* **`PSWindowsUpdate`** — (if installed) counts pending updates.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Get-SystemHealthSnapshot.ps1
+./Get-SystemHealthSnapshot.ps1 | Tee-Object '.\health-before.txt'
 ```
+
+*(Run it again after fixes and `Compare-Object` the two logs to quantify improvement.)*
+
+---
 
 ### Code
 
@@ -194,27 +202,24 @@ $disk = Get-PSDrive -PSProvider FileSystem | Select Name,@{n='Free(GB)';e={[math
     Disk_Free       = ($disk | Out-String).Trim()
 } | Format-List
 ```
-
 ---
 
-## 5️⃣ Detect‑BruteForceLogons.ps1
+### 5️⃣ Detect‑BruteForceLogons
 
-### Purpose
+An increase in failed login attempts is a recognized indicator of a potential security breach. This script analyzes Security Event ID 4625 over the past *N* hours, aggregates the data by **Source IP and Account**, and identifies any entities that surpass a predefined threshold. It is particularly effective for alerting security teams through platforms such as Microsoft Sentinel, Splunk, or via email notifications.
 
-Flag **failed‑logon storms** (Event ID 4625) that may indicate brute‑force attacks and export a CSV of offending IPs/users.
+**How it works**
 
-### How it works
+> * Queries the Security log via `Get‑WinEvent` using a precise hashtable filter (fast!).
+> * Pulls **Source Network Address** and **Account Name** via lightweight regex.
+> * Groups results and filters where attempts ≥ `Threshold`.
+> * Exports a CSV so you can pivot or join against threat‑intel feeds.
 
-* Reads the Security log for the last `HoursBack` hours.
-* Extracts **Source IP** & **Account** via regex.
-* Groups by IP+user and filters where attempts ≥ `Threshold`.
-
-### Usage
+**Usage Example**
 
 ```powershell
 ./Detect-BruteForceLogons.ps1 -HoursBack 12 -Threshold 15 -Report '.\bruteforce.csv'
 ```
-
 ### Code
 
 ```powershell
@@ -244,23 +249,21 @@ Write-Host "✔ Report written to $Report"
 
 ---
 
-## 6️⃣ Get‑ListeningPorts.ps1
+### 6️⃣ Get‑ListeningPorts
 
-### Purpose
+Understanding what *listening* is on your network is as important as knowing what *talking is. This utility lists all TCP and UDP ports in the LISTEN state, connects each port to its corresponding process, and displays the executable path. It's a fast way to identify shadow IT or services initiated by malware.
 
-List every **TCP/UDP port in LISTEN state** plus process and path—useful for hardening or catching rogue services.
+**How it works**
 
-### How it works
+> * Combines `Get‑NetTCPConnection -State Listen` and `Get‑NetUDPEndpoint` results.
+> * Resolves `OwningProcess` to process name & binary path via `Get‑Process`.
+> * Outputs a sortable table you can ship to CSV or Grid View.
 
-* Combines `Get‑NetTCPConnection` and `Get‑NetUDPEndpoint`.
-* Resolves PID → process → file path.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Get-ListeningPorts.ps1 | Out-GridView
+./Get-ListeningPorts.ps1 | Export-Csv '.\listening.csv' -NoTypeInformation
 ```
-
 ### Code
 
 ```powershell
@@ -280,21 +283,20 @@ $udp = Get-NetUDPEndpoint
 
 ---
 
-## 7️⃣ Audit‑LocalAdminMembers.ps1
+### 7️⃣ Audit‑LocalAdminMembers
 
-### Purpose
+Local administrator sprawl presents significant opportunities for lateral movement by attackers. This script systematically enumerates the local Administrators group, differentiates between default and non-default accounts, and identifies any unexpected discrepancies. Doing so enables organizations to reinforce privilege boundaries prior to potential exploitation by malicious actors.
 
-Dump **local Administrators group** membership and flag non‑default accounts.
+**How it works**
 
-### How it works
+> * Calls `Get‑LocalGroupMember -Group 'Administrators'` (Windows 10/11 & Server 2016+).
+> * Compares against a hard‑coded safe list (`Administrator`, `Domain Admins`, etc.).
+> * Prints a flag (⚠ Review) next to unknown members.
 
-* Uses `Get‑LocalGroupMember` (Win10+).
-* Compares against a list of expected defaults.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Audit-LocalAdminMembers.ps1
+./Audit-LocalAdminMembers.ps1 | Out-File '.\admin-audit.txt'
 ```
 
 ### Code
@@ -312,21 +314,20 @@ Get-LocalGroupMember -Group 'Administrators' | ForEach-Object {
 
 ---
 
-## 8️⃣ Invoke‑WindowsDefenderScan.ps1
+### 8️⃣ Invoke‑WindowsDefenderScan
 
-### Purpose
+During incident response, an immediate antivirus scan is often necessary without navigating through the graphical user interface (GUI). This utility facilitates the initiation of either a **Quick** or **Full** Microsoft Defender scan, monitors its completion, and presents any identified findings. This functionality allows for the effective escalation of issues or their resolution with confidence.
 
-Kick off a **Quick or Full Microsoft Defender scan**, monitor progress, and print any threats found.
+**How it works**
 
-### How it works
+> * Starts the scan with `Start‑MpScan`.
+> * Polls `Get‑MpComputerStatus` until scan flags clear.
+> * Pulls threat objects from `Get‑MpThreat` and prints a table if any are found.
 
-* `Start‑MpScan` launches the scan.
-* Polls `Get‑MpThreat` until the scan finishes.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Invoke-WindowsDefenderScan.ps1 -ScanType Quick
+./Invoke-WindowsDefenderScan.ps1 -ScanType Full
 ```
 
 ### Code
@@ -348,23 +349,22 @@ if ($threats) {
 
 ---
 
-## 9️⃣ Test‑NetworkConnectivity.ps1
+### 9️⃣ Test‑NetworkConnectivity
 
-### Purpose
+Is the issue related to the host, the network, or the destination? This script concurrently assesses the reachability of critical hosts, including gateways, DNS servers, and SaaS endpoints, by integrating both ping latency and traceroute hop count. This approach provides a clear overview of system health, enabling efficient escalation to NetOps when necessary.
 
-Run **parallel ping + traceroute** to key hosts (gateway, DNS, or custom list) and show latency & hop count.
+**How it works**
 
-### How it works
+> * Reads targets from `-Targets` parameter or `targets.txt` if present.
+> * Uses `Test‑Connection` for fast latency sampling.
+> * Falls back to `Test‑NetConnection -TraceRoute` when ping fails, capturing hop length.
+> * Outputs a mini‑dashboard table (Reachable ✔ / ✖, Avg RTT, Hops).
 
-* Reads hosts from parameter array or `targets.txt` file.
-* Uses `Test‑Connection` and, for failures, `Test‑NetConnection -TraceRoute`.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Test-NetworkConnectivity.ps1 -Targets '8.8.8.8','microsoft.com'
+./Test-NetworkConnectivity.ps1 -Targets '8.8.8.8','1.1.1.1','microsoft.com'
 ```
-
 ### Code
 
 ```powershell
@@ -383,23 +383,21 @@ $results | Format-Table -AutoSize
 
 ---
 
-## 🔟 Export‑WindowsFirewallRules.ps1
+### 🔟 Export‑WindowsFirewallRules
 
-### Purpose
+Firewalls drift over time. This exporter systematically converts all Windows Firewall rules into a structured JSON format. This transformation facilitates the comparison of baselines, enables integration with Git, and allows for seamless sharing with auditors. It is advisable to utilize this tool before and after policy changes to demonstrate effective compliance with the principle of least privilege.
 
-Back up **all firewall rules** to a JSON file for version control or incident review.
+**How it works**
 
-### How it works
+> * Loops through `Get‑NetFirewallRule`, enriching with port filters via `Get‑NetFirewallPortFilter`.
+> * Builds a PSCustomObject with key rule properties (Name, Direction, Action, Profile, Program, Ports).
+> * Serialises the array to prettified JSON (UTF‑8) for cross‑platform parsing.
 
-* Retrieves rules with `Get‑NetFirewallRule` + `Get‑NetFirewallPortFilter`.
-* Serialises everything to human‑readable JSON.
-
-### Usage
+**Usage Example**
 
 ```powershell
-./Export-WindowsFirewallRules.ps1 -OutFile '.irewall-backup.json'
+./Export-WindowsFirewallRules.ps1 -OutFile '.\firewall-backup.json'
 ```
-
 ### Code
 
 ```powershell
@@ -427,4 +425,11 @@ Write-Host "✔ Firewall rules exported to $OutFile"
 
 ---
 
-Happy hunting 🔍 — feel free to open an issue or PR with new scripts!
+## 🔚 Conclusion
+
+This toolkit showcases practical PowerShell scripts. With these new skills, you will be equipped to integrate with enterprise SIEMs like Microsoft Sentinel or Splunk. Each script is thoroughly documented and demonstrates how adopting an automation mindset can help cybersecurity and IT professionals work faster and more effectively—a core competency for modern Cybersecurity Analysts. Engineers are encouraged to clone, fork, or submit a pull request; after all, security is a team sport!
+
+
+> **Next Steps:** Star ⭐ the repo if you find it useful, or raise an issue if you’d like new features. Happy hunting — and automate *all* the things! 🔍
+
+🔍 — Happy hunting and automate *all* the things! 
