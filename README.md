@@ -14,16 +14,16 @@ This resource benefits junior computer science students seeking to practice blue
 1. [Quick Start Guide](#-quick-start-guide)
 2. [Script Catalogue](#-script-catalogue)
 
-   * [Collect‑EventLogs.ps1](#1️⃣-collect-eventlogsps1)
-   * [Run‑SFCandDISM.ps1](#2️⃣-run-sfcanddismps1)
-   * [Get‑ActiveConnections.ps1](#3️⃣-get-activeconnectionsps1)
-   * [Get‑SystemHealthSnapshot.ps1](#4️⃣-get-systemhealthsnapshotps1)
-   * [Detect‑BruteForceLogons.ps1](#5️⃣-detect-bruteforcelogonsps1)
-   * [Get‑ListeningPorts.ps1](#6️⃣-get-listeningportsps1)
-   * [Audit‑LocalAdminMembers.ps1](#7️⃣-audit-localadminmembersps1)
-   * [Invoke‑WindowsDefenderScan.ps1](#8️⃣-invoke-windowsdefenderscanps1)
-   * [Test‑NetworkConnectivity.ps1](#9️⃣-test-networkconnectivityps1)
-   * [Export‑WindowsFirewallRules.ps1](#🔟-export-windowsfirewallrulesps1)
+   * [Collect‑EventLogs](#1️⃣-collect-eventlogs)
+   * [Run‑SFCandDISM](#2️⃣-run-sfcanddism)
+   * [Get‑ActiveConnections](#3️⃣-get-activeconnections)
+   * [Get‑SystemHealthSnapshot](#4️⃣-get-systemhealthsnapshot)
+   * [Detect‑BruteForceLogons](#5️⃣-detect-bruteforcelogons)
+   * [Get‑ListeningPorts](#6️⃣-get-listeningports)
+   * [Audit‑LocalAdminMembers](#7️⃣-audit-localadminmembers)
+   * [Invoke‑WindowsDefenderScan](#8️⃣-invoke-windowsdefenderscan)
+   * [Test‑NetworkConnectivity](#9️⃣-test-networkconnectivity)
+   * [Export‑WindowsFirewallRules](#🔟-export-windowsfirewallrules)
 3. [Conclusion](#-conclusion)
 
 </details>
@@ -49,7 +49,7 @@ This resource benefits junior computer science students seeking to practice blue
    ```powershell
    ./Collect-EventLogs.ps1 -HoursBack 12 -Logs 'System','Security' -OutputDir 'D:\Logs'
    ```
-4. **Review the output** – Most scripts write either a table to screen or an artefact (CSV / JSON / TXT) you can attach to a ticket or drop into a SIEM pipeline.
+4. **Review the output** – Most scripts write either a table to the screen or an artefact (CSV / JSON / TXT) you can attach to a ticket or drop into a SIEM pipeline.
 
 > *Tip:* All parameters have sensible defaults; launch a script with `-Help` to see them.
 
