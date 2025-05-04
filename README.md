@@ -7,6 +7,7 @@ Modern cybersecurity relies on three essential components: speed, visibility, an
 This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, enabling users to implement them confidently.
 
 ---
+
 <details>
   <summary> 🗂️ Table of Contents </summary>
 
