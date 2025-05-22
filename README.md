@@ -14,6 +14,8 @@ This resource benefits junior computer science students seeking to practice blue
   
 - [Quick-Start-Guide](#quick-start-guide)
 - [Conclusion-Ex](#conclusion-ex)
+- [Conclusion](#conclusion)
+
 
 </details>
 
@@ -453,7 +455,7 @@ Write-Host "✔ Firewall rules exported to $OutFile"
 
 ---
 
-## 🔚 Conclusion
+## Conclusion
 
 This toolkit showcases practical PowerShell scripts. With these new skills, you will be equipped to integrate with enterprise SIEMs like Microsoft Sentinel or Splunk. Each script is thoroughly documented and demonstrates how adopting an automation mindset can help cybersecurity and IT professionals work faster and more effectively—a core competency for modern Cybersecurity Analysts. Engineers are encouraged to clone, fork, or submit a pull request; after all, security is a team sport!
 
