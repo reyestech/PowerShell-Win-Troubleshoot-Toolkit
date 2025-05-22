@@ -14,7 +14,7 @@ This resource benefits junior computer science students seeking to practice blue
   
 - [Guide](#guide)
 - [Script-Catalogue](#script-catalogue)
-- [EventLogs](#eventlogs)
+- [EventLogs](#1.-eventlogs)
 - [SFC-and-DISM](#sfc-and-dism)
 - [Connections](#connections)
 - [System-Snapshot](#system-snapshot)
@@ -35,19 +35,19 @@ This resource benefits junior computer science students seeking to practice blue
 
 <details>
   <summary><strong>📚 Table of Contents</strong></summary>
-  
+
 - [Guide](#guide)
 - [Script-Catalogue](#script-catalogue)
-  1. [EventLogs](#eventlogs)
-  2. [SFC-and-DISM](#sfc-and-dism)
-  3. [Connections](#connections)
-  4. [System-Snapshot](#system-snapshot)
-  5. [Detect](#detect)
-  6. [Listening-Ports](#listening-ports)
-  7. [Audit](#audit)  
-  8. [Defender-Scan](#defender-scan)
-  9. [Network](#network)
-  10. [FirewallRules](#firewallrules)
+  - [1.EventLogs](#1.eventlogs)
+  - [SFC-and-DISM](#sfc-and-dism)
+  - [Connections](#connections)
+  - [System-Snapshot](#system-snapshot)
+  - [Detect](#detect)
+  - [Listening-Ports](#listening-ports)
+  - [Audit](#audit)
+  - [Defender-Scan](#defender-scan)
+  - [Network](#network)
+  - [FirewallRules](#firewallrules)
 - [Conclusion](#conclusion)
 
 </details>
@@ -55,6 +55,29 @@ This resource benefits junior computer science students seeking to practice blue
 
 
 ---
+
+
+<details>
+  <summary><strong>📚 Table of Contents</strong></summary>
+
+[Guide](#guide)
+
+[Script-Catalogue](#script-catalogue)
+1. [EventLogs](#eventlogs)
+2. [SFC-and-DISM](#sfc-and-dism)
+3. [Connections](#connections)
+4. [System-Snapshot](#system-snapshot)
+5. [Detect](#detect)
+6. [Listening-Ports](#listening-ports)
+7. [Audit](#audit)
+8. [Defender-Scan](#defender-scan)
+9. [Network](#network)
+10. [FirewallRules](#firewallrules)
+
+[Conclusion](#conclusion)
+
+</details>
+
 
 ---
 
@@ -89,7 +112,7 @@ This resource benefits junior computer science students seeking to practice blue
 
 ## Script-Catalogue
 
-## EventLogs
+## 1.EventLogs
 ### 1️⃣ Collect‑EventLogs
 
 When incidents occur, the first question is, *“What happened, and when?”* This script automates forensic evidence collection by exporting Windows Event Logs for any specified time window. Instead of manually navigating through Event Viewer and saving EVTX files, you will receive organized CSV files that can be easily imported into Excel, Log Parser, or your SIEM for timeline analysis.
