@@ -32,22 +32,6 @@ This resource benefits junior computer science students seeking to practice blue
 
 ---
 
-<details>
-  <summary><strong>📚 Table of Contents</strong></summary>
-
-- [Guide](#guide)
-- [Script Catalogue](#script-catalogue)
-  1. [Collect-EventLogs](#eventlogs)  
-  2. [Run SFC and DISM](#sfc-and-dism)  
-  3. [Get ActiveConnections](#connections)  
-  4. [System Health Snapshot](#system-snapshot)  
-  5. [Detect BruteForceLogons](#detect)  
-  6. [Get ListeningPorts](#listening-ports)  
-  7. [Audit LocalAdminMembers](#audit)  
-  8. [Invoke WindowsDefenderScan](#defender-scan)  
-  9. [Test NetworkConnectivity](#network)  
-  10. [Export WindowsFirewallRules](#firewallrules)
-- [Conclusion](#conclusion)
 
 <details>
   <summary><strong>📚 Table of Contents</strong></summary>
@@ -67,10 +51,6 @@ This resource benefits junior computer science students seeking to practice blue
 - [Conclusion](#conclusion)
 
 </details>
-
-
-
-
 
 
 
