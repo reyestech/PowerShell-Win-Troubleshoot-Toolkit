@@ -6,62 +6,12 @@ Modern cybersecurity relies on three essential components: speed, visibility, an
 
 This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, enabling users to implement them confidently.
 
----
-
 
 <details>
-  <summary><strong>📚 Table of Contents</strong></summary>
+  <summary><strong>📚 Table of Contents: Click to drop-down</strong></summary>
+</p>
   
-- [Guide](#guide)
-- [Script-Catalogue](#script-catalogue)
-- [EventLogs](#1.-eventlogs)
-- [SFC-and-DISM](#sfc-and-dism)
-- [Connections](#connections)
-- [System-Snapshot](#system-snapshot)
-- [Detect](#detect)
-- [Listening-Ports](#listening-ports)
-- [Defender-Scan](#defender-scan)
-- [Network](#network) 
-- [FirewallRules](#firewallrules)
-- [Conclusion](#conclusion)
-
-</details>
-
-
----
-
----
-
-
-<details>
-  <summary><strong>📚 Table of Contents</strong></summary>
-
-- [Guide](#guide)
-- [Script-Catalogue](#script-catalogue)
-  - [1.EventLogs](#1.eventlogs)
-  - [SFC-and-DISM](#sfc-and-dism)
-  - [Connections](#connections)
-  - [System-Snapshot](#system-snapshot)
-  - [Detect](#detect)
-  - [Listening-Ports](#listening-ports)
-  - [Audit](#audit)
-  - [Defender-Scan](#defender-scan)
-  - [Network](#network)
-  - [FirewallRules](#firewallrules)
-- [Conclusion](#conclusion)
-
-</details>
-
-
-
----
-
-
-<details>
-  <summary><strong>📚 Table of Contents</strong></summary>
-
-[Guide](#guide)
-
+[Guide](#guide)  </p>
 [Script-Catalogue](#script-catalogue)
 1. [EventLogs](#eventlogs)
 2. [SFC-and-DISM](#sfc-and-dism)
@@ -72,7 +22,7 @@ This resource benefits junior computer science students seeking to practice blue
 7. [Audit](#audit)
 8. [Defender-Scan](#defender-scan)
 9. [Network](#network)
-10. [FirewallRules](#firewallrules)
+10. [FirewallRules](#firewallrules)  </p>
 
 [Conclusion](#conclusion)
 
@@ -112,7 +62,7 @@ This resource benefits junior computer science students seeking to practice blue
 
 ## Script-Catalogue
 
-## 1.EventLogs
+## EventLogs
 ### 1️⃣ Collect‑EventLogs
 
 When incidents occur, the first question is, *“What happened, and when?”* This script automates forensic evidence collection by exporting Windows Event Logs for any specified time window. Instead of manually navigating through Event Viewer and saving EVTX files, you will receive organized CSV files that can be easily imported into Excel, Log Parser, or your SIEM for timeline analysis.
