@@ -47,7 +47,7 @@ This resource benefits junior computer science students seeking to practice blue
 
 ---
 
-## 🚀 Quick‑Start Guide
+## Quick‑Start Guide
 
 1. **Clone the repository** – Fetches the toolkit to your workstation so you can inspect or modify the scripts locally.
 
