@@ -46,7 +46,7 @@ This resource benefits junior computer science students seeking to practice blue
 
 ---
 
-## Quick Start Guide
+## 📚 Quick Start Guide
 
 ### 📚 Quick‑Start-Guide
 
