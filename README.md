@@ -101,7 +101,7 @@ Write-Host "✔ Logs exported to $OutputDir"
 
 ---
 
-### 2️⃣ Run‑SFCandDISM
+### 2️⃣ Run SFC and DISM
 
 System file corruption poses a significant risk to system reliability. This script effectively integrates two native Microsoft repair tools: System File Checker (SFC) and Deployment Image Servicing and Management (DISM). It captures their combined output in a timestamped log, which enhances the ability to conduct post-compromise integrity checks and assist in troubleshooting unexplained operating system errors. This approach ensures a thorough and systematic evaluation of the system's integrity.
 
