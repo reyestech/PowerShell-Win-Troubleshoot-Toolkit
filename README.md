@@ -13,6 +13,7 @@ This resource benefits junior computer science students seeking to practice blue
   <summary><strong>📚 Table of Contents</strong></summary>
   
 - [Guide](#guide)
+- [Script Catalogue](#script-catalogue)
 - [EventLogs](#eventlogs)
 - [SFC-and-DISM](#sfc-and-dism)
 - [Connections](#connections)
