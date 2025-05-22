@@ -13,7 +13,7 @@ This resource benefits junior computer science students seeking to practice blue
   <summary><strong>📚 Table of Contents</strong></summary>
   
 - [Guide](#guide)
-- [Script Catalogue](#script-catalogue)
+- [Script-Catalogue](#script-catalogue)
 - [EventLogs](#eventlogs)
 - [SFC-and-DISM](#sfc-and-dism)
 - [Connections](#connections)
@@ -59,7 +59,7 @@ This resource benefits junior computer science students seeking to practice blue
 ![Animated_example_demonstrating_use_of_snippet_in_PowerShell_ISE](https://github.com/user-attachments/assets/e554b1ee-1255-4947-8e5f-78bd072df777)
 
 
-## Script Catalogue
+## Script-Catalogue
 
 ## EventLogs
 ### 1️⃣ Collect‑EventLogs
