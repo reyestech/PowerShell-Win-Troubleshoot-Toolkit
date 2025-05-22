@@ -200,7 +200,7 @@ Get-NetTCPConnection -State Established | ForEach-Object {
 
 ---
 
-### 4️⃣ Get‑SystemHealthSnapshot
+## 4️⃣ Get‑SystemHealthSnapshot
 
 Prior to initiating troubleshooting efforts, it is essential to establish a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
 
