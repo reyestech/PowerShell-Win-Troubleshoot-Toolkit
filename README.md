@@ -20,9 +20,6 @@ This resource benefits junior computer science students seeking to practice blue
 </details>
 
 
-
----
-
 ---
 
 <details>
