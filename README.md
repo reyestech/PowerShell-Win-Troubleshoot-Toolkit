@@ -11,7 +11,8 @@ This resource benefits junior computer science students seeking to practice blue
 
 <details>
   <summary><strong>📚 Table of Contents</strong></summary>
-
+  
+- [Quick Start Guide](#quick-start-guide)
 - [Conclusion-Ex](#conclusion-ex)
 
 </details>
@@ -45,6 +46,7 @@ This resource benefits junior computer science students seeking to practice blue
 
 
 ---
+
 ## 🚀 Quick‑Start Guide
 
 1. **Clone the repository** – Fetches the toolkit to your workstation so you can inspect or modify the scripts locally.
