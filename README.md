@@ -17,24 +17,24 @@ This resource benefits junior computer science students seeking to practice blue
 ---
 
 <details>
-  <summary> 🗂️ Table of Contents </summary>
+  <summary><strong>📚 Table of Contents</strong></summary>
 
-1. [Quick Start Guide](#-quick-start-guide)
-2. [Script Catalogue](#-script-catalogue)
-
-   * [Collect‑EventLogs](#1️⃣-collect-eventlogs)
-   * [Run‑SFCandDISM](#2️⃣-run-sfcanddism)
-   * [Get‑ActiveConnections](#3️⃣-get-activeconnections)
-   * [Get‑SystemHealthSnapshot](#4️⃣-get-systemhealthsnapshot)
-   * [Detect‑BruteForceLogons](#5️⃣-detect-bruteforcelogons)
-   * [Get‑ListeningPorts](#6️⃣-get-listeningports)
-   * [Audit‑LocalAdminMembers](#7️⃣-audit-localadminmembers)
-   * [Invoke‑WindowsDefenderScan](#8️⃣-invoke-windowsdefenderscan)
-   * [Test‑NetworkConnectivity](#9️⃣-test-networkconnectivity)
-   * [Export‑WindowsFirewallRules](#🔟-export-windowsfirewallrules)
-3. [Conclusion](#-conclusion)
+- [Quick Start Guide](#quick-start-guide)
+- [Script Catalogue](#script-catalogue)
+  1. [Collect‑EventLogs](#1-collect‑eventlogs)
+  2. [Run SFC and DISM](#2-run-sfc-and-dism)
+  3. [Get‑ActiveConnections](#3-get‑activeconnections)
+  4. [Get‑SystemHealthSnapshot](#4-get‑systemhealthsnapshot)
+  5. [Detect‑BruteForceLogons](#5-detect‑bruteforcelogons)
+  6. [Get‑ListeningPorts](#6-get‑listeningports)
+  7. [Audit‑LocalAdminMembers](#7-audit‑localadminmembers)
+  8. [Invoke‑WindowsDefenderScan](#8-invoke‑windowsdefenderscan)
+  9. [Test‑NetworkConnectivity](#9-test‑networkconnectivity)
+ 10. [Export‑WindowsFirewallRules](#10-export‑windowsfirewallrules)
+- [Conclusion](#conclusion)
 
 </details>
+
 
 
 
