@@ -385,7 +385,7 @@ if ($threats) {
 
 ---
 
-### 9️⃣ Test‑NetworkConnectivity
+## 9️⃣ Test‑NetworkConnectivity
 
 Is the issue related to the host, the network, or the destination? This script concurrently assesses the reachability of critical hosts, including gateways, DNS servers, and SaaS endpoints, by integrating both ping latency and traceroute hop count. This approach provides a clear overview of system health, enabling efficient escalation to NetOps when necessary.
 
