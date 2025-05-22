@@ -49,8 +49,24 @@ This resource benefits junior computer science students seeking to practice blue
   10. [Export WindowsFirewallRules](#firewallrules)
 - [Conclusion](#conclusion)
 
-</details>
+<details>
+  <summary><strong>📚 Table of Contents</strong></summary>
+  
+- [Guide](#guide)
+- [Script-Catalogue](#script-catalogue)
+  1. [EventLogs](#eventlogs)
+  2. [SFC-and-DISM](#sfc-and-dism)
+  3. [Connections](#connections)
+  4. [System-Snapshot](#system-snapshot)
+  5. [Detect](#detect)
+  6. [Listening-Ports](#listening-ports)
+  7. [Audit](#audit)  
+  8. [Defender-Scan](#defender-scan)
+  9. [Network](#network)
+  10. [FirewallRules](#firewallrules)
+- [Conclusion](#conclusion)
 
+</details>
 
 
 
