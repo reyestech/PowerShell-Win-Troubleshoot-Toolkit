@@ -12,41 +12,24 @@ This resource benefits junior computer science students seeking to practice blue
 <details>
   <summary><strong>📚 Table of Contents</strong></summary>
   
-- [Guide](#Guide)
-- [Conclusion-Ex](#conclusion-ex)
+- [Guide](#guide)
+- [EventLogs](#eventlogs)
+- [SFC-and-DISM](#sfc-and-dism)
+- [Connections](#connections)
+- [System-Snapshot](#system-snapshot)
+- [Detect](#detect)
+- [Listening-Ports](#listening-ports)
+- [Defender-Scan](#defender-scan)
+- [Network](#network) 
+- [FirewallRules](#firewallrules)
 - [Conclusion](#conclusion)
-
 
 </details>
 
 
 ---
 
-<details>
-  <summary><strong>📚 Table of Contents</strong></summary>
-
-- [Quick Start Guide](#quick-start-guide)
-- [Script Catalogue](#script-catalogue)
-  1. [Collect‑EventLogs](#1-collect‑eventlogs)
-  2. [Run SFC and DISM](#2-run-sfc-and-dism)
-  3. [Get‑ActiveConnections](#3-get‑activeconnections)
-  4. [Get‑SystemHealthSnapshot](#4-get‑systemhealthsnapshot)
-  5. [Detect‑BruteForceLogons](#5-detect‑bruteforcelogons)
-  6. [Get‑ListeningPorts](#6-get‑listeningports)
-  7. [Audit‑LocalAdminMembers](#7-audit‑localadminmembers)
-  8. [Invoke‑WindowsDefenderScan](#8-invoke‑windowsdefenderscan)
-  9. [Test‑NetworkConnectivity](#9-test‑networkconnectivity)
- 10. [Export‑WindowsFirewallRules](#10-export‑windowsfirewallrules)
-- [Conclusion](#conclusion)
-
-</details>
-
-
-
-
----
-
-## 📚 Quick Start Guide
+## Guide
 
 ### 📚 Quick‑Start-Guide
 
@@ -77,6 +60,7 @@ This resource benefits junior computer science students seeking to practice blue
 
 ## 📜 Script Catalogue
 
+## EventLogs
 ### 1️⃣ Collect‑EventLogs
 
 When incidents occur, the first question is, *“What happened, and when?”* This script automates forensic evidence collection by exporting Windows Event Logs for any specified time window. Instead of manually navigating through Event Viewer and saving EVTX files, you will receive organized CSV files that can be easily imported into Excel, Log Parser, or your SIEM for timeline analysis.
@@ -118,7 +102,8 @@ Write-Host "✔ Logs exported to $OutputDir"
 
 ---
 
-### 2️⃣ Run SFC and DISM
+## SFC-and-DISM
+### 2️⃣ Run SFC and DISM Scans
 
 System file corruption poses a significant risk to system reliability. This script effectively integrates two native Microsoft repair tools: System File Checker (SFC) and Deployment Image Servicing and Management (DISM). It captures their combined output in a timestamped log, which enhances the ability to conduct post-compromise integrity checks and assist in troubleshooting unexplained operating system errors. This approach ensures a thorough and systematic evaluation of the system's integrity.
 
@@ -155,11 +140,12 @@ Write-Host "✔ Repair complete – see $log"
 
 ---
 
+## Connections
 ### 3️⃣ Get‑ActiveConnections
 
 ## Conclusion-Ex
 
-Malware often hides by attaching itself in plain sight and piggybacking on legitimate processes. This script displays all established outbound TCP connections, identifying each with the corresponding process name and the user who initiated it. This allows analysts to quickly identify unauthorized beacons or channels used for data exfiltration.
+Malware often hides by attaching itself in plain sight and piggybacking on legitimate processes. This script displays all established outbound TCP connections, identifying each with the corresponding process name and the user who initiated it. This allows analysts to identify unauthorized beacons or channels used for data exfiltration quickly.
 
 **How it works**
 
@@ -193,6 +179,7 @@ Get-NetTCPConnection -State Established | ForEach-Object {
 
 ---
 
+## System-Snapshot
 ## 4️⃣ Get‑SystemHealthSnapshot
 
 Prior to initiating troubleshooting efforts, it is essential to establish a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
@@ -233,6 +220,7 @@ $disk = Get-PSDrive -PSProvider FileSystem | Select Name,@{n='Free(GB)';e={[math
 ```
 ---
 
+## Detect
 ### 5️⃣ Detect‑BruteForceLogons
 
 An increase in failed login attempts is a recognized indicator of a potential security breach. This script analyzes Security Event ID 4625 over the past *N* hours, aggregates the data by **Source IP and Account**, and identifies any entities that surpass a predefined threshold. It is particularly effective for alerting security teams through platforms such as Microsoft Sentinel, Splunk, or via email notifications.
@@ -278,6 +266,7 @@ Write-Host "✔ Report written to $Report"
 
 ---
 
+## Listening-Ports
 ### 6️⃣ Get‑ListeningPorts
 
 Understanding what *listening* is on your network is as important as knowing what *talking is. This utility lists all TCP and UDP ports in the LISTEN state, connects each port to its corresponding process, and displays the executable path. It's a fast way to identify shadow IT or services initiated by malware.
@@ -312,6 +301,7 @@ $udp = Get-NetUDPEndpoint
 
 ---
 
+## Audit
 ### 7️⃣ Audit‑LocalAdminMembers
 
 Local administrator sprawl presents significant opportunities for lateral movement by attackers. This script systematically enumerates the local Administrators group, differentiates between default and non-default accounts, and identifies any unexpected discrepancies. Doing so enables organizations to reinforce privilege boundaries prior to potential exploitation by malicious actors.
@@ -343,6 +333,7 @@ Get-LocalGroupMember -Group 'Administrators' | ForEach-Object {
 
 ---
 
+## Defender-Scan
 ### 8️⃣ Invoke‑WindowsDefenderScan
 
 During incident response, an immediate antivirus scan is often necessary without navigating through the graphical user interface (GUI). This utility facilitates the initiation of either a **Quick** or **Full** Microsoft Defender scan, monitors its completion, and presents any identified findings. This functionality allows for the effective escalation of issues or their resolution with confidence.
@@ -377,7 +368,8 @@ if ($threats) {
 ```
 
 ---
-
+ 
+## Network
 ## 9️⃣ Test‑NetworkConnectivity
 
 Is the issue related to the host, the network, or the destination? This script concurrently assesses the reachability of critical hosts, including gateways, DNS servers, and SaaS endpoints, by integrating both ping latency and traceroute hop count. This approach provides a clear overview of system health, enabling efficient escalation to NetOps when necessary.
@@ -412,6 +404,7 @@ $results | Format-Table -AutoSize
 
 ---
 
+## FirewallRules
 ### 🔟 Export‑WindowsFirewallRules
 
 Firewalls drift over time. This exporter systematically converts all Windows Firewall rules into a structured JSON format. This transformation facilitates the comparison of baselines, enables integration with Git, and allows for seamless sharing with auditors. It is advisable to utilize this tool before and after policy changes to demonstrate effective compliance with the principle of least privilege.
