@@ -60,6 +60,23 @@ This resource benefits junior computer science students seeking to practice blue
 
 ## Script-Catalogue
 
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+     
+KQL Query: NSGs Inbound Traffic from all untrusted IPs.
+
+```
+> * Accepts **`HoursBack`**, **`Logs`** (array of log names), and **`OutputDir`**.
+> * Creates the destination folder if it doesn’t exist.
+> * Uses **`Get‑WinEvent`** with a hashtable filter for efficiency (no slow `Where‑Object`).
+> * Selects the most actionable fields (timestamp, event ID, severity, message).
+> * Exports each log type to its own CSV for clean segregation.
+
+```
+</details>
+
+
+
 ## EventLogs
 ### 1️⃣ Collect‑EventLogs
 
@@ -67,11 +84,18 @@ When incidents occur, the first question is, *“What happened, and when?”* Th
  
 **How it works**
 
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+
 > * Accepts **`HoursBack`**, **`Logs`** (array of log names), and **`OutputDir`**.
 > * Creates the destination folder if it doesn’t exist.
 > * Uses **`Get‑WinEvent`** with a hashtable filter for efficiency (no slow `Where‑Object`).
 > * Selects the most actionable fields (timestamp, event ID, severity, message).
 > * Exports each log type to its own CSV for clean segregation.
+
+</details>
+
+
 
 **Usage Example**
 
@@ -109,10 +133,17 @@ System file corruption poses a significant risk to system reliability. This scri
 
 **How it works**
 
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+     
+```Script
 > * Builds a log directory on‑the‑fly to preserve historical runs.
 > * Executes `sfc /scannow` to repair active system files.
 > * Follows up with `DISM /RestoreHealth` to patch the underlying Windows image.
 > * Pipes all console output through **`Tee‑Object`** so you see progress live *and* keep a text record.
+```
+
+</details>
 
 **Usage Example**
 
@@ -149,17 +180,31 @@ Malware often hides by attaching itself in plain sight and piggybacking on legit
 
 **How it works**
 
+Script
+```
+
 > * Queries `Get‑NetTCPConnection` for **`State = Established`**.
 > * Resolves Process ID to friendly names using `Get‑Process`.
 > * Retrieves the owning username via CIM’s `Win32_Process.GetOwner()`.
 > * Outputs an alphabetised table ready for copy‑paste into a report or pasted into Grid View.
+
+```
+</details>
+
+ <details>
+   <summary><strong> 📋Click to View Query: SSH Attacks </strong></summary>
+   
+ActiveConnections
+```kql
+Syslog
+| where Facility == "auth" and SyslogMessage contains "Failed password"
+```
 
 **Usage Example**
 
 ```powershell
 ./Get-ActiveConnections.ps1 | Out-GridView
 ```
-
 
 ### Code
 
@@ -182,15 +227,20 @@ Get-NetTCPConnection -State Established | ForEach-Object {
 ## System-Snapshot
 ## 4️⃣ Get‑SystemHealthSnapshot
 
-Prior to initiating troubleshooting efforts, it is essential to establish a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
+Prior to initiating troubleshooting efforts, it is essential to establish a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to demonstrate the impact of your remediation actions effectively.
 
 **How it works**
 
-> * Samples CPU with `Get‑Counter '\Processor(_Total)\% Processor Time'` (three 1‑second polls averaged).
-> * Pulls memory stats from `Win32_OperatingSystem`, converting KB to GB for human readability.
-> * Enumerates drives via `Get‑PSDrive -PSProvider FileSystem`, rounding free space.
-> * If the **PSWindowsUpdate** module exists, `Get‑WindowsUpdate` counts pending patches; otherwise, it skips silently.
-> * Outputs everything as a tidy formatted list — perfect for screenshots or copy‑paste into an incident timeline.
+```Script
+* Samples CPU with `Get‑Counter '\Processor(_Total)\% Processor Time'` (three 1‑second polls averaged).
+* Pulls memory stats from `Win32_OperatingSystem`, converting KB to GB for human readability.
+* Enumerates drives via `Get‑PSDrive -PSProvider FileSystem`, rounding free space.
+* If the **PSWindowsUpdate** module exists, `Get‑WindowsUpdate` counts pending patches; otherwise, it skips silently.
+* Outputs everything as a tidy formatted list — perfect for screenshots or copy‑paste into an incident timeline.
+
+```
+</details>
+
 
 **Usage Example**
 
@@ -231,6 +281,13 @@ An increase in failed login attempts is a recognized indicator of a potential se
 > * Pulls **Source Network Address** and **Account Name** via lightweight regex.
 > * Groups results and filters where attempts ≥ `Threshold`.
 > * Exports a CSV so you can pivot or join against threat‑intel feeds.
+
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+
+```Script
+</details>
+
 
 **Usage Example**
 
@@ -273,9 +330,18 @@ Understanding what *listening* is on your network is as important as knowing wha
 
 **How it works**
 
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+
+```Script
+
 > * Combines `Get‑NetTCPConnection -State Listen` and `Get‑NetUDPEndpoint` results.
 > * Resolves `OwningProcess` to process name & binary path via `Get‑Process`.
 > * Outputs a sortable table you can ship to CSV or Grid View.
+
+
+```
+</details>
 
 **Usage Example**
 
@@ -307,10 +373,16 @@ $udp = Get-NetUDPEndpoint
 Local administrator sprawl presents significant opportunities for lateral movement by attackers. This script systematically enumerates the local Administrators group, differentiates between default and non-default accounts, and identifies any unexpected discrepancies. Doing so enables organizations to reinforce privilege boundaries prior to potential exploitation by malicious actors.
 
 **How it works**
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+
+```Script
 
 > * Calls `Get‑LocalGroupMember -Group 'Administrators'` (Windows 10/11 & Server 2016+).
 > * Compares against a hard‑coded safe list (`Administrator`, `Domain Admins`, etc.).
 > * Prints a flag (⚠ Review) next to unknown members.
+```
+</details>
 
 **Usage Example**
 
@@ -340,9 +412,16 @@ During incident response, an immediate antivirus scan is often necessary without
 
 **How it works**
 
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+
+```Script
+
 > * Starts the scan with `Start‑MpScan`.
 > * Polls `Get‑MpComputerStatus` until scan flags clear.
 > * Pulls threat objects from `Get‑MpThreat` and prints a table if any are found.
+```
+</details>
 
 **Usage Example**
 
@@ -376,10 +455,17 @@ Is the issue related to the host, the network, or the destination? This script c
 
 **How it works**
 
+<details>
+   <summary><strong> 📋Click to View: How it works </strong></summary>
+
+```Script
 > * Reads targets from `-Targets` parameter or `targets.txt` if present.
 > * Uses `Test‑Connection` for fast latency sampling.
 > * Falls back to `Test‑NetConnection -TraceRoute` when ping fails, capturing hop length.
 > * Outputs a mini‑dashboard table (Reachable ✔ / ✖, Avg RTT, Hops).
+```
+</details>
+
 
 **Usage Example**
 
@@ -411,9 +497,16 @@ Firewalls drift over time. This exporter systematically converts all Windows Fir
 
 **How it works**
 
+```
+</details>
+
 > * Loops through `Get‑NetFirewallRule`, enriching with port filters via `Get‑NetFirewallPortFilter`.
 > * Builds a PSCustomObject with key rule properties (Name, Direction, Action, Profile, Program, Ports).
 > * Serialises the array to prettified JSON (UTF‑8) for cross‑platform parsing.
+
+```
+</details>
+
 
 **Usage Example**
 
