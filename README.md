@@ -326,7 +326,7 @@ Write-Host "✔ Report written to $Report"
 ## Listening-Ports
 ### 6️⃣ Get‑ListeningPorts
 
-Understanding what *listening* is on your network is as important as knowing what *talking is. This utility lists all TCP and UDP ports in the LISTEN state, connects each port to its corresponding process, and displays the executable path. It's a fast way to identify shadow IT or services initiated by malware.
+Understanding what listening is on your network is as important as knowing what talking is. This utility lists all TCP and UDP ports in the LISTEN state, connects each port to its corresponding process, and displays the executable path associated with each process. It's a fast way to identify shadow IT or services initiated by malware.
 
 **How it works**
 
@@ -493,7 +493,7 @@ $results | Format-Table -AutoSize
 ## FirewallRules
 ### 🔟 Export‑WindowsFirewallRules
 
-Firewalls drift over time. This exporter systematically converts all Windows Firewall rules into a structured JSON format. This transformation facilitates the comparison of baselines, enables integration with Git, and allows for seamless sharing with auditors. It is advisable to utilize this tool before and after policy changes to demonstrate effective compliance with the principle of least privilege.
+Firewalls drift over time. This exporter systematically converts all Windows Firewall rules into a structured JSON format. This transformation facilitates the comparison of baselines, enables integration with Git, and allows for seamless sharing with auditors. It would be best for you to use this tool before and after policy changes to show effective compliance with the principle of least privilege.
 
 **How it works**
 
@@ -510,12 +510,12 @@ Firewalls drift over time. This exporter systematically converts all Windows Fir
 
 **Usage Example**
 
-```powershell
+``"owershell
 ./Export-WindowsFirewallRules.ps1 -OutFile '.\firewall-backup.json'
 ```
 ### Code
 
-```powershell
+``"owershell
 param([string]$OutFile = (Join-Path $PWD 'FirewallRules.json'))
 
 $rules = Get-NetFirewallRule | ForEach-Object {
@@ -530,7 +530,7 @@ $rules = Get-NetFirewallRule | ForEach-Object {
         Service   = $_.ServiceName
         Protocol  = $port.Protocol
         LocalPort = $port.LocalPort
-        RemotePort= $port.RemotePort
+        RemotePort $port.RemotePort
     }
 }
 
@@ -542,9 +542,9 @@ Write-Host "✔ Firewall rules exported to $OutFile"
 
 ## Conclusion
 
-This toolkit showcases practical PowerShell scripts. With these new skills, you will be equipped to integrate with enterprise SIEMs like Microsoft Sentinel or Splunk. Each script is thoroughly documented and demonstrates how adopting an automation mindset can help cybersecurity and IT professionals work faster and more effectively—a core competency for modern Cybersecurity Analysts. Engineers are encouraged to clone, fork, or submit a pull request; after all, security is a team sport!
+This toolkit showcases practical PowerShell scripts. With these new skills, you will be equipped to integrate with enterprise SIEMs, such as Microsoft Sentinel or Splunk. Each script is thoroughly documented, demonstrating how adopting an automation mindset can help cybersecurity and IT professionals work faster and more effectively—a core competency for modern Cybersecurity Analysts. Engineers are encouraged to clone, fork, or submit a pull request; after all, security is a team sport!
 
 
-> **Next Steps:** Star ⭐ the repo if you find it useful, or raise an issue if you’d like new features. Happy hunting — and automate *all* the things! 🔍
+**Next Steps:** Star ⭐ the repo if you find it useful, or raise an issue if you'd like new features. Happy hunting — and automate *all* the things! 🔍
 
 🔍 — Happy hunting and automate *all* the things! 
