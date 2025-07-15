@@ -2,9 +2,9 @@
 
 # PowerShell-Win-Troubleshoot-Toolkit
 
-Modern cybersecurity relies on three essential components: speed, visibility, and automation. This repository provides ready-to-execute PowerShell utilities that equip Security Operations Centers (SOCs) and Windows administrators with immediate capabilities: rapidly collecting evidence, promptly identifying anomalies, and initiating trusted remediation workflows without installing third-party dependencies.
+Modern cybersecurity relies on three essential components: speed, visibility, and automation. This repository provides ready-to-execute PowerShell utilities that equip Security Operations Centers (SOCs) and Windows administrators with immediate capabilities, enabling them to rapidly collect evidence, promptly identify anomalies, and initiate trusted remediation workflows without the need to install third-party dependencies.
 
-This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, enabling users to implement them confidently.
+This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, allowing users to implement them with confidence.
 
 <details>
   <summary><strong>📚 Table of Contents: Click to drop-down</strong></summary>
@@ -176,7 +176,7 @@ Write-Host "✔ Repair complete – see $log"
 
 ## Conclusion-Ex
 
-Malware often hides by attaching itself in plain sight and piggybacking on legitimate processes. This script displays all established outbound TCP connections, identifying each with the corresponding process name and the user who initiated it. This allows analysts to identify unauthorized beacons or channels used for data exfiltration quickly.
+Malware often hides by attaching itself in plain sight and piggybacking on legitimate processes. This script displays all established outbound TCP connections, identifying each with the corresponding process name and the user who initiated it. This enables analysts to identify unauthorized beacons or channels used for data exfiltration quickly.
 
 **How it works**
 
@@ -227,7 +227,7 @@ Get-NetTCPConnection -State Established | ForEach-Object {
 ## System-Snapshot
 ## 4️⃣ Get‑SystemHealthSnapshot
 
-Prior to initiating troubleshooting efforts, it is essential to establish a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to demonstrate the impact of your remediation actions effectively.
+Before initiating troubleshooting efforts, it is essential to set a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
 
 **How it works**
 
@@ -370,7 +370,7 @@ $udp = Get-NetUDPEndpoint
 ## Audit
 ### 7️⃣ Audit‑LocalAdminMembers
 
-Local administrator sprawl presents significant opportunities for lateral movement by attackers. This script systematically enumerates the local Administrators group, differentiates between default and non-default accounts, and identifies any unexpected discrepancies. Doing so enables organizations to reinforce privilege boundaries prior to potential exploitation by malicious actors.
+Local administrator sprawl presents significant opportunities for lateral movement by attackers. This Script systematically enumerates the local Administrators group, differentiates between default and non-default accounts, and identifies any unexpected discrepancies. Doing so enables organizations to reinforce privilege boundaries before malicious actors exploit them.
 
 **How it works**
 <details>
