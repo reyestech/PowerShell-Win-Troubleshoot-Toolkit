@@ -47,7 +47,7 @@ This resource benefits junior computer science students seeking to practice blue
 3. **Run any helper** – Each script is self‑contained. For example, export the last 12 hours of System & Security logs to `D:\Logs`:
 
    ```powershell
-   ./Collect-EventLogs.ps1 -HoursBack 12 -Logs 'System','Security' -OutputDir 'D:\Logs'
+   ./Collect-EventLogs.ps1 -HoursBack 12 -Logs 'System',' Security' -OutputDir 'D:\Logs'
    ```
 4. **Review the output** – Most scripts write either a table to the screen or an artefact (CSV / JSON / TXT) you can attach to a ticket or drop into a SIEM pipeline.
 
@@ -108,7 +108,7 @@ When incidents occur, the first question is, *“What happened, and when?”* Th
 ```powershell
 param(
     [int]      $HoursBack = 24,
-    [string[]] $Logs      = @('System','Application','Security'),
+    [string[]] $Logs      = @('System', 'Application',' Security'),
     [string]   $OutputDir = (Join-Path $PWD 'EventLogs')
 )
 if (-not (Test-Path $OutputDir)) {
@@ -393,7 +393,7 @@ Local administrator sprawl presents significant opportunities for lateral moveme
 ### Code
 
 ```powershell
-$default = 'Administrator','Domain Admins','SYSTEM','Administrators'
+$default = 'Administrator',' Domain Admins', 'SYSTEM',' Administrators'
 Get-LocalGroupMember -Group 'Administrators' | ForEach-Object {
     [pscustomobject]@{
         Member = $_.Name
@@ -451,7 +451,7 @@ if ($threats) {
 ## Network
 ## 9️⃣ Test‑NetworkConnectivity
 
-Is the issue related to the host, the network, or the destination? This script concurrently assesses the reachability of critical hosts, including gateways, DNS servers, and SaaS endpoints, by integrating both ping latency and traceroute hop count. This approach provides a clear overview of system health, enabling efficient escalation to NetOps when necessary.
+Is the issue related to the host, the network, or the destination? This Script concurrently assesses the reachability of critical hosts, including gateways, DNS servers, and SaaS endpoints, by integrating both ping latency and traceroute hop count. This approach provides a clear overview of system health, enabling efficient escalation to NetOps when necessary.
 
 **How it works**
 
