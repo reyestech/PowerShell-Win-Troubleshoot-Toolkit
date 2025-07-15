@@ -2,6 +2,7 @@
 
 # PowerShell-Win-Troubleshoot-Toolkit
 
+## **Intro**
 Modern cybersecurity relies on three essential components: speed, visibility, and automation. This repository provides ready-to-execute PowerShell utilities that equip Security Operations Centers (SOCs) and Windows administrators with immediate capabilities, enabling them to rapidly collect evidence, promptly identify anomalies, and initiate trusted remediation workflows without the need to install third-party dependencies.
 
 This resource benefits junior computer science students seeking to practice blue-team fundamentals and troubleshoot technical issues, as well as experienced responders who require lightweight tools during incident bridge calls. Each script is thoroughly commented, parameter-driven, and designed for production safety, allowing users to implement them with confidence.
@@ -27,10 +28,10 @@ This resource benefits junior computer science students seeking to practice blue
 
 </details>
 
-
 ---
 
 ## Guide
+
 ### 📚 Quick‑Start-Guide
 
 1. **Clone the repository** – Fetches the toolkit to your workstation so you can inspect or modify the scripts locally.
@@ -57,7 +58,6 @@ This resource benefits junior computer science students seeking to practice blue
 
 ![Animated_example_demonstrating_use_of_snippet_in_PowerShell_ISE](https://github.com/user-attachments/assets/e554b1ee-1255-4947-8e5f-78bd072df777)
 
-
 ## Script-Catalogue
 
 <details>
@@ -76,8 +76,8 @@ KQL Query: NSGs Inbound Traffic from all untrusted IPs.
 </details>
 
 
-
 ## EventLogs
+
 ### 1️⃣ Collect‑EventLogs
 
 When incidents occur, the first question is, *“What happened, and when?”* This script automates forensic evidence collection by exporting Windows Event Logs for any specified time window. Instead of manually navigating through Event Viewer and saving EVTX files, you will receive organized CSV files that can be easily imported into Excel, Log Parser, or your SIEM for timeline analysis.
@@ -94,8 +94,6 @@ When incidents occur, the first question is, *“What happened, and when?”* Th
 > * Exports each log type to its own CSV for clean segregation.
 
 </details>
-
-
 
 **Usage Example**
 
@@ -127,6 +125,7 @@ Write-Host "✔ Logs exported to $OutputDir"
 ---
 
 ## SFC-and-DISM
+
 ### 2️⃣ Run SFC and DISM Scans
 
 System file corruption poses a significant risk to system reliability. This script effectively integrates two native Microsoft repair tools: System File Checker (SFC) and Deployment Image Servicing and Management (DISM). It captures their combined output in a timestamped log, which enhances the ability to conduct post-compromise integrity checks and assist in troubleshooting unexplained operating system errors. This approach ensures a thorough and systematic evaluation of the system's integrity.
@@ -172,6 +171,7 @@ Write-Host "✔ Repair complete – see $log"
 ---
 
 ## Connections
+
 ### 3️⃣ Get‑ActiveConnections
 
 ## Conclusion-Ex
@@ -225,9 +225,10 @@ Get-NetTCPConnection -State Established | ForEach-Object {
 ---
 
 ## System-Snapshot
+
 ## 4️⃣ Get‑SystemHealthSnapshot
 
-Before initiating troubleshooting efforts, it is essential to set a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
+Before you start troubleshooting efforts, it is essential to set a baseline. This script captures **real-time CPU load**, **memory usage**, **available disk space**, and **the count of pending Windows updates**—all in a single execution. It is advisable to run this script at both the commencement and conclusion of a support ticket to effectively demonstrate the impact of your remediation actions.
 
 **How it works**
 
@@ -240,7 +241,6 @@ Before initiating troubleshooting efforts, it is essential to set a baseline. Th
 
 ```
 </details>
-
 
 **Usage Example**
 
@@ -264,13 +264,14 @@ $disk = Get-PSDrive -PSProvider FileSystem | Select Name,@{n='Free(GB)';e={[math
     Timestamp       = Get-Date
     CPU_Load_Percent= [math]::Round($cpu,1)
     RAM_Used_GB     = [math]::Round(($mem.TotalVisibleMemorySize-$mem.FreePhysicalMemory)/1MB,2)
-    Pending_Updates = (Get-WindowsUpdate -MicrosoftUpdate -IgnoreReboot -ErrorAction SilentlyContinue).Count
+    Pending_Updates = (Get-WindowsUpdate -MicrosoftUpdate -IgnoreReboot -ErrorAction SilentlyContinue). Count
     Disk_Free       = ($disk | Out-String).Trim()
 } | Format-List
 ```
 ---
 
 ## Detect
+
 ### 5️⃣ Detect‑BruteForceLogons
 
 An increase in failed login attempts is a recognized indicator of a potential security breach. This script analyzes Security Event ID 4625 over the past *N* hours, aggregates the data by **Source IP and Account**, and identifies any entities that surpass a predefined threshold. It is particularly effective for alerting security teams through platforms such as Microsoft Sentinel, Splunk, or via email notifications.
@@ -324,6 +325,7 @@ Write-Host "✔ Report written to $Report"
 ---
 
 ## Listening-Ports
+
 ### 6️⃣ Get‑ListeningPorts
 
 Understanding what listening is on your network is as important as knowing what talking is. This utility lists all TCP and UDP ports in the LISTEN state, connects each port to its corresponding process, and displays the executable path associated with each process. It's a fast way to identify shadow IT or services initiated by malware.
@@ -368,6 +370,7 @@ $udp = Get-NetUDPEndpoint
 ---
 
 ## Audit
+
 ### 7️⃣ Audit‑LocalAdminMembers
 
 Local administrator sprawl presents significant opportunities for lateral movement by attackers. This Script systematically enumerates the local Administrators group, differentiates between default and non-default accounts, and identifies any unexpected discrepancies. Doing so enables organizations to reinforce privilege boundaries before malicious actors exploit them.
@@ -406,6 +409,7 @@ Get-LocalGroupMember -Group 'Administrators' | ForEach-Object {
 ---
 
 ## Defender-Scan
+
 ### 8️⃣ Invoke‑WindowsDefenderScan
 
 During incident response, an immediate antivirus scan is often necessary without navigating through the graphical user interface (GUI). This utility facilitates the initiation of either a **Quick** or **Full** Microsoft Defender scan, monitors its completion, and presents any identified findings. This functionality allows for the effective escalation of issues or their resolution with confidence.
@@ -449,6 +453,7 @@ if ($threats) {
 ---
  
 ## Network
+
 ## 9️⃣ Test‑NetworkConnectivity
 
 Is the issue related to the host, the network, or the destination? This Script concurrently assesses the reachability of critical hosts, including gateways, DNS servers, and SaaS endpoints, by integrating both ping latency and traceroute hop count. This approach provides a clear overview of system health, enabling efficient escalation to NetOps when necessary.
@@ -491,6 +496,7 @@ $results | Format-Table -AutoSize
 ---
 
 ## FirewallRules
+
 ### 🔟 Export‑WindowsFirewallRules
 
 Firewalls drift over time. This exporter systematically converts all Windows Firewall rules into a structured JSON format. This transformation facilitates the comparison of baselines, enables integration with Git, and allows for seamless sharing with auditors. It would be best for you to use this tool before and after policy changes to show effective compliance with the principle of least privilege.
@@ -540,10 +546,9 @@ Write-Host "✔ Firewall rules exported to $OutFile"
 
 ---
 
-## Conclusion
+## **Conclusion**
 
 This toolkit showcases practical PowerShell scripts. With these new skills, you will be equipped to integrate with enterprise SIEMs, such as Microsoft Sentinel or Splunk. Each script is thoroughly documented, demonstrating how adopting an automation mindset can help cybersecurity and IT professionals work faster and more effectively—a core competency for modern Cybersecurity Analysts. Engineers are encouraged to clone, fork, or submit a pull request; after all, security is a team sport!
-
 
 **Next Steps:** Star ⭐ the repo if you find it useful, or raise an issue if you'd like new features. Happy hunting — and automate *all* the things! 🔍
 
